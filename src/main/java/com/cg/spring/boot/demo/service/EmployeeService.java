@@ -1,6 +1,5 @@
 package com.cg.spring.boot.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,11 @@ public class EmployeeService {
 	}
 
 	public Employee addEmployee(Employee employee) {
+		return empRepository.save(employee);
+	}
+
+	public Employee saveOrUpdate(Employee employee) {
+		
 		return empRepository.save(employee);
 	}
 
