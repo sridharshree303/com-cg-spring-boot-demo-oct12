@@ -15,20 +15,22 @@ public class Hello {
 	
 	@RequestMapping("/hello")
 	public String hello() {
-		System.out.println("hello world!");
-		LOG.info("hello");            //
+		//System.out.println("hello world!");
+		LOG.info("hello");            
 		return "Hello Sridhar!";
 	}
 	@RequestMapping("/hi")
 	public String hi() {
-		System.out.println("hi world!");
+		LOG.info("Hi world");
+		//System.out.println("hi world!");
 		return "Hi Sridhar!.......";
 	}
 
 	// http://localhost:8082/some-other-api
 	@RequestMapping("/some-other-api")
 	public String someOtherApi() {
-		System.out.println("someOtherApi");
+		//System.out.println("someOtherApi");
+		LOG.info("SOMEotherApi");
 		return "<!DOCTYPE html>\r\n" + "<html>\r\n" + "\r\n" + "<head>\r\n" + "</head>\r\n" + "\r\n" + "<body>\r\n"
 				+ "    <h1 style='color: blue; font-family: Arial, Helvetica;'>Welcome to Capgemini</h1>\r\n"
 				+ "    <p style='color: darkblue; font-family: consolas, Monospace;'>You are most welcome to Capgemini.</p>\r\n"

@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ComCgSpringBootDemoOct12Application {
-
+	private static final Logger LOG = LoggerFactory.getLogger(Hello.class);
 	public static void main(String[] args) {
 		
-		final Logger LOG = LoggerFactory.getLogger(ComCgSpringBootDemoOct12Application.class);
+	//final Logger LOG = LoggerFactory.getLogger(ComCgSpringBootDemoOct12Application.class);
 		LOG.info("Start");
 	  //  System.out.println("Start.....");
 	    SpringApplication.run(ComCgSpringBootDemoOct12Application.class, args);
