@@ -1,10 +1,14 @@
 package com.cg.spring.boot.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Hello {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(Hello.class);
 	
 	//URL  -  http://localhost:8082/hello
 	//Endpoint, API  - hello
@@ -12,12 +16,13 @@ public class Hello {
 	@RequestMapping("/hello")
 	public String hello() {
 		System.out.println("hello world!");
+		LOG.info("hello");            //
 		return "Hello Sridhar!";
 	}
 	@RequestMapping("/hi")
 	public String hi() {
 		System.out.println("hi world!");
-		return "Hi Sridhar!";
+		return "Hi Sridhar!.......";
 	}
 
 	// http://localhost:8082/some-other-api
