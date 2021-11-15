@@ -2,7 +2,12 @@ package com.cg.spring.boot.demo.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +21,7 @@ import com.cg.spring.boot.demo.service.EmployeeService;
 
 @RestController
 public class EmployeeController {
+	private static final Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService empService;
@@ -23,38 +29,116 @@ public class EmployeeController {
 	// http://localhost:8082/getallemps
 	@GetMapping("/getallemps")
 	public List<Employee> getAllEmps() {
-		System.out.println("Controller getAllEmps");
+		LOG.info("getAllEmps"); // in normal block
+		LOG.warn("getAllEmps"); // in normal or exception block
+		LOG.error("getAllEmps"); // in exception block
+//		LOG.debug("getAllEmps"); // in debug mode 
 		return empService.getAllEmployees();
 	}
-	/*
-	 * // http://localhost:8082/delempid/{eid}
-	 * 
-	 * @DeleteMapping("/delempid/{eid}")
-	 * public Employee deleteEmployee(@PathVariable(name = "eid")int eid) {
-	 * System.out.println("Controller deleteEmpById"); return
-	 * empService.getEmployeeById(eid); } 
-	 * 
-	 * //http://localhost:8082/updateemp
-	 * 
-	 * @PutMapping("/updateemp")
-	 * public Employee updateEmpId(@RequestBody Employee employee)
-	 * { System.out.println("Controller updateEmpId"); return
-	 * empService.saveOrUpdate(employee); }
-	 */
 
-	// http://localhost:8082/getempbyid/{eid}
+//	// returns only employee object (body)
+//	// http://localhost:8082/getempbyid/101
+//	@GetMapping("/getempbyid/{eid}")
+//	public Employee getEmpById(@PathVariable(name = "eid") int eid) {
+//		System.out.println("Controller getEmpById");
+//		return empService.getEmployeeById(eid);
+//	}
+
+////	// returns responseentity object including employee object (body)
+//	// http://localhost:8082/getempbyid/101
+//	@GetMapping("/getempbyid/{eid}")
+//	public ResponseEntity<Employee> getEmpById(@PathVariable(name = "eid") int eid) {
+//		LOG.info("getEmpById");
+//		Employee emp = empService.getEmployeeById(eid);
+//		ResponseEntity<Employee> response = new ResponseEntity<Employee>(emp, HttpStatus.OK);
+//		return response;
+//	}
+
+//// returns responseentity object including employee object (body) and message (header)
+//// http://localhost:8082/getempbyid/101
+//	@GetMapping("/getempbyid/{eid}")
+//	public ResponseEntity<Employee> getEmpById(@PathVariable(name = "eid") int eid) {
+//		LOG.info("getEmpById");
+//		Employee emp = empService.getEmployeeById(eid);
+//		HttpHeaders headers = new HttpHeaders();
+//			headers.add("message", "This employee is available in the database.");
+//			ResponseEntity<Employee> response = new ResponseEntity<Employee>(emp, headers, HttpStatus.OK);
+//	}
+
+//	// returns responseentity object including employee object (body) and message
+//	// (header)
+//	// http://localhost:8082/getempbyid/101
+//	@GetMapping("/getempbyid/{eid}")
+//	public ResponseEntity<Employee> getEmpById(@PathVariable(name = "eid") int eid) {
+//		LOG.info("getEmpById");
+//		Employee emp = empService.getEmployeeById(eid);
+//		HttpHeaders headers = new HttpHeaders();
+//		ResponseEntity<Employee> response;
+//		if (null != emp) {
+//			headers.add("message", "This employee is available in the database.");
+//			LOG.info(headers.toString());
+//			response = new ResponseEntity<Employee>(emp, headers, HttpStatus.OK);
+//			return response;
+//		} else {
+//			headers.add("message", "This employee is NOT available in the database.");
+//			LOG.info(headers.toString());
+//			response = new ResponseEntity<Employee>(emp, headers, HttpStatus.NOT_FOUND);
+//			return response;
+//		}
+//	}
+
+	// returns responseentity object including employee object (body) and (header)
+	// http://localhost:8082/getempbyid/101
 	@GetMapping("/getempbyid/{eid}")
-	public Employee getEmpById(@PathVariable(name = "eid") int eid) {
-		System.out.println("Controller getEmpById");
-		return empService.getEmployeeById(eid);
+	public ResponseEntity<Employee> getEmpById(@PathVariable(name = "eid") int eid) {
+		LOG.info("getEmpById");
+		Employee emp = empService.getEmployeeById(eid); // line
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "This employee is available in the database.");
+		LOG.info(headers.toString());
+		ResponseEntity<Employee> response = new ResponseEntity<Employee>(emp, headers, HttpStatus.OK);
+		return response;
 	}
+
+//	// http://localhost:8082/addemp
+//	@PostMapping("/addemp")
+//	public Employee addEmp(@RequestBody Employee employee) {
+//		LOG.info("Controller addEmp");
+//		return empService.addEmployee(employee);
+//	}
 
 	// http://localhost:8082/addemp
 	@PostMapping("/addemp")
 	public Employee addEmp(@RequestBody Employee employee) {
-		System.out.println("Controller addEmp");
+		LOG.info("Controller addEmp");
 		return empService.addEmployee(employee);
 	}
+
+	// http://localhost:8082/updateemp
+	@PutMapping("/updateemp")
+	public Employee updateEmp(@RequestBody Employee employee) {
+		LOG.info("Controller updateEmp");
+		return empService.updateEmployee(employee);
+	}
+//	// http://localhost:8082//deleteempbyid/{eid}
+//	@DeleteMapping("/deleteempbyid/{eid}")
+//	public int deleteEmpById(@PathVariable int eid) {
+//		LOG.info("Controller deleteEmpById");
+//		return empService.deleteEmployeeById(eid);
+//	}
+
+	// http://localhost:8082//deleteempbyid/{eid}
+	@DeleteMapping("/deleteempbyid/{eid}")
+	public ResponseEntity<Employee> deleteEmpById(@PathVariable(name = "eid") int eid) {
+		LOG.info("deleteempbyid");
+		Employee emp = empService.deleteEmployeeById(eid);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "This employee is deleted from the Database");
+		LOG.info(headers.toString());
+		ResponseEntity<Employee> response1 = new ResponseEntity<Employee>(emp, headers, HttpStatus.OK);
+		return response1;
+	}
+}
 
 //	
 //	@GetMapping("/getemp")
@@ -78,4 +162,3 @@ public class EmployeeController {
 ////@PutMapping("/ppp")
 ////@DeleteMapping("/ddddd")
 //
-}
