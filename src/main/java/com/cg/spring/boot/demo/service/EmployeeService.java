@@ -52,10 +52,13 @@ public class EmployeeService {
 
 	public Employee addEmployee(Employee employee) {
 		LOG.info("Service addEmployee");
-		if (!empRepository.existsById(employee.getEid()))
+		if (!empRepository.existsById(employee.getEid())) {
+			LOG.info("New Employee is Added");
 			return empRepository.save(employee);
-		LOG.info(employee.getEid() + " already exists.");
-		return null;
+		}else {
+		  LOG.info("Employee Data is already exists");
+		  throw new EmployeeNotFoundException("Employee already exists");
+		}
 	}
 
 //	public Employee updateEmployee(Employee employee) {
@@ -69,11 +72,13 @@ public class EmployeeService {
 
 	public Employee updateEmployee(Employee employee) {
 		LOG.info("Service updateEmployee");
-		// Optional<Employee> empOpt = empRepository.;
-		if (empRepository.existsById(employee.getEid()))
+		if (empRepository.existsById(employee.getEid())) {
+			LOG.info("Employee Data is Updated");
 			return empRepository.save(employee);
-		LOG.info(employee.getEid() + " does not exist.");
-		return null;
+		}else {
+		LOG.info(employee.getEid() + " Emplyoee data is Not updated");
+		throw new EmployeeNotFoundException("Employee Data is not updated");
+		}
 	}
 
 //	public int deleteEmployeeById(int eid) {

@@ -109,17 +109,35 @@ public class EmployeeController {
 
 	// http://localhost:8082/addemp
 	@PostMapping("/addemp")
-	public Employee addEmp(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee) {
 		LOG.info("Controller addEmp");
-		return empService.addEmployee(employee);
+		Employee emp = empService.addEmployee(employee);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", " New employee is added to the Database");
+		LOG.info(headers.toString());
+		ResponseEntity<Employee> response = new ResponseEntity<Employee>(emp, headers, HttpStatus.OK);
+		return response;
 	}
+
+//	// http://localhost:8082/updateemp
+//	@PutMapping("/updateemp")
+//	public Employee updateEmp(@RequestBody Employee employee) {
+//		LOG.info("Controller updateEmp");
+//		return empService.updateEmployee(employee);
+//	}
 
 	// http://localhost:8082/updateemp
 	@PutMapping("/updateemp")
-	public Employee updateEmp(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> updateEmp(@RequestBody Employee employee) {
 		LOG.info("Controller updateEmp");
-		return empService.updateEmployee(employee);
+		Employee emp = empService.updateEmployee(employee);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "This employee data is updated in database.");
+		ResponseEntity<Employee> response = new ResponseEntity<Employee>(emp, headers, HttpStatus.OK);
+		return response;
 	}
+	
+
 //	// http://localhost:8082//deleteempbyid/{eid}
 //	@DeleteMapping("/deleteempbyid/{eid}")
 //	public int deleteEmpById(@PathVariable int eid) {
