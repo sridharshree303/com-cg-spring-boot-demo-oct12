@@ -18,18 +18,18 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	// follow identifier naming conventions
 	// findByExistingFieldName(existing field name)
 
-	public abstract List<Employee> findByFirstName(String firstName);
+	public abstract List<Employee> findByFirstName(String firstName);   //
 
-	public abstract List<Employee> findByFirstNameStartsWith(String firstName);
+	public abstract List<Employee> findByFirstNameStartsWith(String firstName);   
 
-	public abstract List<Employee> findBySalary(double salary);
+	public abstract List<Employee> findBySalary(double salary);  //
 
-	public abstract List<Employee> findBySalaryGreaterThan(double salary);
+	public abstract List<Employee> findBySalaryGreaterThan(double salary);  //
 
-	public abstract List<Employee> findBySalaryLessThan(double salary);
+	public abstract List<Employee> findBySalaryLessThan(double salary);   //
 
 	@Query(name = "SELECT e FROM Employee WHERE e.salary BETWEEN ?1 AND ?2") // JPQL
-	public abstract List<Employee> findBySalaryBetween(double salary1, double salary2);
+	public abstract List<Employee> findBySalaryBetween(double salary1, double salary2);  //
 
 //	public abstract List<Employee> findBySalaryBetween(double salary1, double salary2);
 

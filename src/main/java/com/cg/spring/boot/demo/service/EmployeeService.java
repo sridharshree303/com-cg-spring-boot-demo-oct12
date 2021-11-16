@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.spring.boot.demo.Exception.DepartmentNotFoundException;
 import com.cg.spring.boot.demo.Exception.EmployeeNotFoundException;
 import com.cg.spring.boot.demo.model.Employee;
+import com.cg.spring.boot.demo.repository.DepartmentRepository;
 import com.cg.spring.boot.demo.repository.EmployeeRepository;
 
 @Service
@@ -20,15 +22,13 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository empRepository;
 
+	@Autowired
+	private DepartmentRepository depRepository;
+
 	public List<Employee> getAllEmployees() {
 		System.out.println("Service getAllEmployees");
 		return empRepository.findAll();
 	}
-
-//	public Employee getEmployeeById(int eid) {
-//		Log.info("getEmployeeById");
-//		return empRepository.findById(eid).get();
-//	}
 
 	public Employee getEmployeeById(int eid) {
 		LOG.info("getEmployeeById");
@@ -43,11 +43,11 @@ public class EmployeeService {
 	}
 
 	public Employee addEmployee(Employee employee) {
-		System.out.println("Service addEmployee");
-		if (!empRepository.existsById(employee.getEid()))
+		LOG.info("Service addEmployee");
+		if (depRepository.existsById(employee.getDepartment().getDid()))
 			return empRepository.save(employee);
-		System.out.println(employee.getEid() + " already exists.");
-		return null;
+		else
+			throw new DepartmentNotFoundException(employee.getDepartment().getDid() + " this department is not found.");
 	}
 
 	public Employee updateEmployee(Employee employee) {
@@ -73,6 +73,26 @@ public class EmployeeService {
 	public List<Employee> getEmployeeByFirstName(String firstName) {
 		LOG.info("getEmployeeByFirstName");
 		return empRepository.findByFirstName(firstName);
+	}
+	
+	public List<Employee> getEmployeeByFirstNameStarts(String firstName){
+		LOG.info("getEmployeeByFirstNameStarts");
+		return empRepository.findByFirstNameStartsWith(firstName);
+	}
+	
+	public List<Employee> getEmployeeBySalary(double salary){
+		LOG.info("getEmployeeBySalary");
+		return empRepository.findBySalary(salary);
+	}
+	
+	public List<Employee> getEmployeeBySalaryGreaterThan(double salary){
+		LOG.info("getEmployeeBySalaryGreaterThan");
+		return empRepository.findBySalaryGreaterThan(salary);
+	}
+	
+	public List<Employee>  getEmployeeBySalaryLessThan(double salary){
+		LOG.info("getEmployeeBySalaryLessThan");
+		return empRepository.findBySalaryLessThan(salary);
 	}
 
 	public List<Employee> getEmployeeBySalaryInBetween(double salary1, double salary2) {

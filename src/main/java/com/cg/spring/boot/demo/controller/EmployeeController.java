@@ -104,9 +104,11 @@ public class EmployeeController {
 
 	// http://localhost:8082/addemp
 	@PostMapping("/addemp")
-	public Employee addEmp(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee) {
 		System.out.println("Controller addEmp");
-		return empService.addEmployee(employee);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "Employee added successfully.");
+		return new ResponseEntity<Employee>(empService.addEmployee(employee), headers, HttpStatus.CREATED);
 	}
 
 	// http://localhost:8082/updateemp
@@ -130,6 +132,35 @@ public class EmployeeController {
 	public List<Employee> getEmpByFirstName(@PathVariable String firstName) {
 		LOG.info("getEmpByFirstName");
 		return empService.getEmployeeByFirstName(firstName);
+	}
+	@GetMapping("/getbynamestartswith/{%firstName}")
+	public List<Employee> getEmpByFirstNameStartsWith(@PathVariable String firstName){
+		LOG.info("getEmpByFirstNameStartsWith");
+		return empService.getEmployeeByFirstNameStarts(firstName);
+	}
+	
+	@GetMapping("/getbysalary/{salary}")
+	public List<Employee> getEmpBySalary(@PathVariable double salary) {
+		LOG.info("getEmpBySalary");
+		return empService.getEmployeeBySalary(salary);
+	}
+	
+	@GetMapping("/getempsalarygreater/{salary}")
+	public List<Employee> getEmpBySalaryGreaterThan(@PathVariable double salary){
+		LOG.info("getEmpBySalaryGreaterThan");
+		return empService.getEmployeeBySalaryGreaterThan(salary);
+	}
+	
+	@GetMapping("/getempsalarylesser/{salary}")
+	public List<Employee> getEmpBySalaryLessThan(@PathVariable double salary){
+		LOG.info(" getEmpBySalaryLessThan");
+		return empService. getEmployeeBySalaryLessThan(salary);
+	}
+	
+	@GetMapping("/getbetweenrange/{salary}{salary}")
+	public List<Employee> getEmpBySalaryInBetween(@PathVariable double salary1,double salary2){
+		LOG.info("getEmpBySalaryInBetween");
+		return empService.getEmployeeBySalaryInBetween(salary1,salary2);
 	}
 
 }
