@@ -133,7 +133,7 @@ public class EmployeeController {
 		LOG.info("getEmpByFirstName");
 		return empService.getEmployeeByFirstName(firstName);
 	}
-	@GetMapping("/getbynamestartswith/{%firstName}")
+	@GetMapping("/getbynamestartswith/{firstName}")
 	public List<Employee> getEmpByFirstNameStartsWith(@PathVariable String firstName){
 		LOG.info("getEmpByFirstNameStartsWith");
 		return empService.getEmployeeByFirstNameStarts(firstName);
