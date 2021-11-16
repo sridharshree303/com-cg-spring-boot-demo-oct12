@@ -1,5 +1,6 @@
 package com.cg.spring.boot.demo.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,18 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 @Entity
-@Table(name = "emp_table2")
+@Table(name = "emp_table3")
 public class Employee {
 
 	@Id // primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int eid;
+	private int eid; // blahblahblah
 
 	@Column
-//	@Size(min = 3, max = 16, message = "firstName should be between %min and %max characters.")
-	private String name;
+	private String firstName;
 
 	@Column
 	private double salary;
@@ -27,10 +26,10 @@ public class Employee {
 		super();
 	}
 
-	public Employee(int eid, String name, double salary) {
+	public Employee(int eid, String firstName, double salary) {
 		super();
 		this.eid = eid;
-		this.name = name;
+		this.firstName = firstName;
 		this.salary = salary;
 	}
 
@@ -42,12 +41,12 @@ public class Employee {
 		this.eid = eid;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public double getSalary() {
@@ -60,7 +59,7 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [eid=" + eid + ", firstName=" + name + ", salary=" + salary + "]";
+		return "Employee [eid=" + eid + ", firstName=" + firstName + ", salary=" + salary + "]";
 	}
 
 }
