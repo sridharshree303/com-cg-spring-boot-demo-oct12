@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.spring.boot.demo.model.AppUser;
 import com.cg.spring.boot.demo.model.Employee;
 import com.cg.spring.boot.demo.service.EmployeeService;
 
@@ -104,11 +105,11 @@ public class EmployeeController {
 
 	// http://localhost:8082/addemp
 	@PostMapping("/addemp")
-	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee,AppUser appuser) {
 		System.out.println("Controller addEmp");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "Employee added successfully.");
-		return new ResponseEntity<Employee>(empService.addEmployee(employee), headers, HttpStatus.CREATED);
+		return new ResponseEntity<Employee>(empService.addEmployee(employee,appuser), headers, HttpStatus.CREATED);
 	}
 
 	// http://localhost:8082/updateemp

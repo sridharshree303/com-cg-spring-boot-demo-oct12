@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.cg.spring.boot.demo.Exception.DepartmentNotFoundException;
 import com.cg.spring.boot.demo.Exception.EmployeeNotFoundException;
+import com.cg.spring.boot.demo.model.AppUser;
 import com.cg.spring.boot.demo.model.Employee;
+import com.cg.spring.boot.demo.repository.AppUserRepository;
 import com.cg.spring.boot.demo.repository.DepartmentRepository;
 import com.cg.spring.boot.demo.repository.EmployeeRepository;
 
@@ -24,6 +26,9 @@ public class EmployeeService {
 
 	@Autowired
 	private DepartmentRepository depRepository;
+	
+	@Autowired
+	AppUserRepository appUserRepository;
 
 	public List<Employee> getAllEmployees() {
 		System.out.println("Service getAllEmployees");
@@ -42,12 +47,13 @@ public class EmployeeService {
 		}
 	}
 
-	public Employee addEmployee(Employee employee) {
+	public Employee addEmployee(Employee employee,AppUser appuser) {
 		LOG.info("Service addEmployee");
-		if (depRepository.existsById(employee.getDepartment().getDid()))
+		if (depRepository.existsById(employee.getDepartment().getDid())) {
+			 appUserRepository.save(appuser);
 			return empRepository.save(employee);
-		else
-			throw new DepartmentNotFoundException(employee.getDepartment().getDid() + " this department is not found.");
+		}else {
+			throw new DepartmentNotFoundException(employee.getDepartment().getDid() + " this department is not found.");}
 	}
 
 	public Employee updateEmployee(Employee employee) {

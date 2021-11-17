@@ -23,9 +23,9 @@ public class AppUserService {
 
 	public AppUser register(AppUser appUser) {
 		LOG.info("register");
-		if (appUserRepository.findByUserName(appUser.getUserName()).getUserName()
-				.equalsIgnoreCase(appUser.getUserName()))
-			throw new AppUserAlreadyExistsException();
+	//	if (appUserRepository.findByUserName(appUser.getUserName()).getUserName()
+	//			.equalsIgnoreCase(appUser.getUserName()))
+		//	throw new AppUserAlreadyExistsException();
 		return appUserRepository.save(appUser);
 	}
 

@@ -99,7 +99,7 @@ public class Employee implements Serializable {
 	@Override
 	public String toString() {
 		return "Employee [eid=" + eid + ", firstName=" + firstName + ", salary=" + salary + ", department=" + department
-				+" , appuser = "+appuser +"]";
+				+"Appuser "+appuser+"]";
 	}
 
 }
