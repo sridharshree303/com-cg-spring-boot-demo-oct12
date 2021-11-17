@@ -16,7 +16,5 @@ public class ComCgSpringBootDemoOct12Application {
 	    SpringApplication.run(ComCgSpringBootDemoOct12Application.class, args);
 	  //  System.out.println("End");
 	    LOG.info("Stop");
-	    //
 	}
-
 }

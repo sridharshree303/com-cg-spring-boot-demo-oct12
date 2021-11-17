@@ -31,6 +31,10 @@ public class Employee implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "did")
 	private Department department;
+	
+	@ManyToOne
+	@JoinColumn(name = "uid")
+	private AppUser appuser;
 
 	public Employee() {
 		super();
@@ -49,6 +53,15 @@ public class Employee implements Serializable {
 		this.firstName = firstName;
 		this.salary = salary;
 		this.department = department;
+	}
+	
+	public Employee(int eid, String firstName, double salary, Department department,AppUser appuser) {
+		super();
+		this.eid = eid;
+		this.firstName = firstName;
+		this.salary = salary;
+		this.department = department;
+		this.appuser = appuser;
 	}
 
 	public int getEid() {
@@ -86,7 +99,7 @@ public class Employee implements Serializable {
 	@Override
 	public String toString() {
 		return "Employee [eid=" + eid + ", firstName=" + firstName + ", salary=" + salary + ", department=" + department
-				+ "]";
+				+" , appuser = "+appuser +"]";
 	}
 
 }
