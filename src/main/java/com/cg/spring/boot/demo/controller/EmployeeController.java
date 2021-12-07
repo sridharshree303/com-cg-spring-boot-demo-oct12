@@ -106,7 +106,7 @@ public class EmployeeController {
 	// http://localhost:8082/addemp
 	@PostMapping("/addemp")
 	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee,AppUser appuser) {
-		System.out.println("Controller addEmp");
+		LOG.info("Controller addEmp");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "Employee added successfully.");
 		return new ResponseEntity<Employee>(empService.addEmployee(employee,appuser), headers, HttpStatus.CREATED);

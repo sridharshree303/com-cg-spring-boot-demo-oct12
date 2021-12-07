@@ -3,6 +3,7 @@ package com.cg.spring.boot.demo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,13 +14,14 @@ public class Hello {
 	
 	//URL  -  http://localhost:8082/hello
 	//Endpoint, API  - hello
-	
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/hello")
 	public String hello() {
 		//System.out.println("hello world!");
 		LOG.info("hello");            
 		return "Hello Sridhar!";
 	}
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/hi")
 	public String hi() {
 		LOG.info("Hi world");
@@ -28,6 +30,7 @@ public class Hello {
 	}
 
 	// http://localhost:8082/some-other-api
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/some-other-api")
 	public String someOtherApi() {
 		//System.out.println("someOtherApi");
