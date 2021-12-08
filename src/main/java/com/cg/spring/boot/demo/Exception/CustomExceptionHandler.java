@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.cg.spring.boot.demo.model.AppUser;
+
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -28,6 +30,22 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "This department is NOT available in the database.");
 		return new ResponseEntity<Object>(null, headers, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(AppUserAlreadyExistsException.class)
+	public ResponseEntity<AppUser> handleAppUserAlreadyExistsException() {
+		LOG.error("handleAppUserAlreadyExistsException");
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "This username is already registered.");
+		return new ResponseEntity<AppUser>(null, headers, HttpStatus.valueOf(403));
+	}
+
+	@ExceptionHandler(AppUserNotFoundException.class)
+	public ResponseEntity<Object> handleAppUserNotFoundException() {
+		LOG.error("handleAppUserNotFoundException");
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("message", "This username is not found.");
+		return new ResponseEntity<Object>(null, headers, HttpStatus.valueOf(404));
 	}
 //	@ExceptionHandler(SomeOtherException.class)
 //	public ResponseEntity<Object> handleSomeOtherException() {

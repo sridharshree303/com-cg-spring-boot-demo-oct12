@@ -16,3 +16,12 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 	public abstract List<AppUser> findByRole(Role role);
 
 }
+
+//@Repository
+//public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
+//
+//	public abstract AppUser findByUserName(String userName);
+//
+//	public abstract List<AppUser> findByRole(Role role);
+//
+//}

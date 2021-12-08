@@ -29,7 +29,8 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService empService;
 
-	// http://localhost:8082/getallemps
+	// http://localhost:8082/getallemps -- props
+	//// http://localhost:8082/getallemps/{eid} -- props+callback
 	@GetMapping("/getallemps")
 	public List<Employee> getAllEmps() {
 		LOG.info("getAllEmps"); // in normal block
@@ -105,12 +106,13 @@ public class EmployeeController {
 
 	// http://localhost:8082/addemp
 	@PostMapping("/addemp")
-	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee,AppUser appuser) {
-		LOG.info("Controller addEmp");
+	public ResponseEntity<Employee> addEmp(@RequestBody Employee employee) {
+		System.out.println("Controller addEmp");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "Employee added successfully.");
-		return new ResponseEntity<Employee>(empService.addEmployee(employee,appuser), headers, HttpStatus.CREATED);
+		return new ResponseEntity<Employee>(empService.addEmployee(employee), headers, HttpStatus.CREATED);
 	}
+
 
 	// http://localhost:8082/updateemp
 	@PutMapping("/updateemp")
