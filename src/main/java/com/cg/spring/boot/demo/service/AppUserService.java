@@ -32,7 +32,10 @@ public class AppUserService {
 
 	public AppUser login(AppUser appUser) {
 		LOG.info("login");
+		
 		tempUser = appUserRepository.findByUserName(appUser.getUserName());
+		LOG.info(""+tempUser);
+		
 		if (null != tempUser) {
 			if (appUser.equals(tempUser)) {
 				isLoggedIn = true;
